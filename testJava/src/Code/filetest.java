@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class filetest {
 	public static void main(String[] args) throws FileNotFoundException {
 		File st1 = new File("C:\\Users\\DELL\\Desktop\\Edubridge Notes\\EduWorkspace\\testJava\\Xyz.txt");
-
 		Scanner sc = new Scanner(st1);
 		while (sc.hasNext()) {
 			int a = sc.nextInt();
