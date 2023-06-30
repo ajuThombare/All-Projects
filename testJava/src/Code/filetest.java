@@ -9,6 +9,7 @@ public class filetest {
 		File st1 = new File("C:\\Users\\DELL\\Desktop\\Edubridge Notes\\EduWorkspace\\testJava\\Xyz.txt");
 		Scanner sc = new Scanner(st1);
 		while (sc.hasNext()) {
+
 			int a = sc.nextInt();
 
 			for (int k = 1; k <= a; k++) {
