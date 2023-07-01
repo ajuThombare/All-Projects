@@ -1,9 +1,9 @@
 package Code;
 
-public class interThreadCommWaitAndNotifyAll {
+public class interThreadCommWaitAndNotifyAlls {
 	public static void main(String[] args) throws InterruptedException {
 		display d1 = new display();
-		thread1 trd = new thread1(d1, "Ajay");
+		threads1 trd = new threads1(d1, "Ajay");
 		trd.start();
 
 		Thread.sleep(4000);
@@ -27,11 +27,11 @@ class display {
 	}
 }
 
-class thread1 extends Thread {
+class threads1 extends Thread {
 	display d;
 	String name;
 
-	public thread1(display d, String name) {
+	public threads1(display d, String name) {
 		this.d = d;
 		this.name = name;
 	}
