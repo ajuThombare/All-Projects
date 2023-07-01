@@ -7,7 +7,7 @@ import java.io.IOException;
 class ReadAndWriteThread extends Thread {
 	public synchronized static void writeToFile() throws IOException {
 		// TODO Auto-generated method stub
-
+//test done
 		FileWriter myWriter = new FileWriter("Xyz.txt");
 		myWriter.write("ABCD");
 		System.out.println("File Written");
@@ -30,10 +30,8 @@ class ReadAndWriteThread extends Thread {
 	@Override
 	public void run() {
 		try {
-//			synchronized (this) {
 			writeToFile();
 			readFromFile();
-//			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,9 +44,8 @@ public class SingleThreadReadAndWrite {
 	public static void main(String[] args) throws InterruptedException {
 		ReadAndWriteThread t1 = new ReadAndWriteThread();
 		t1.start();
-//		t1.join();
 		ReadAndWriteThread t2 = new ReadAndWriteThread();
 		t2.start();
-//		t2.join();
+
 	}
 }
