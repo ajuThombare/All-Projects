@@ -1,7 +1,11 @@
 package testJava.test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -9,20 +13,14 @@ import java.util.TreeSet;
 
 public class Practice {
 
-	public boolean checkValid(int[][] matrix) {
-		for (int r = 0, n = matrix.length; r < n; ++r) {
-			Set<Integer> row = new HashSet<>();
-			Set<Integer> col = new HashSet<>();
-			for (int c = 0; c < n; ++c) {
-				if (!row.add(matrix[r][c]) || !col.add(matrix[c][r])) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-
 	public static void main(String[] args) {
+
+//		int a = 2 ^ 5;
+//		int c = a ^ 6;
+//		System.out.println(c);
+//		String[] a = { "ab", "ba", "cc" };
+//
+//		System.out.println(maximumNumberOfStringPairs(a));
 //		Map<Integer, String> mp = new HashMap<>();
 //		mp.put(null, null);
 //		mp.put(null, "o");
@@ -32,12 +30,12 @@ public class Practice {
 //		hashSet.add(2);
 //		hashSet.add(1);
 //		System.out.println(mp);
-		byte a = 1;
-		short b = 1;
-		int c = 1;
-		long d = 1;
-		c = (int) d;
-	}
+//		byte a = 1;
+//		short b = 1;
+//		int c = 1;
+//		long d = 1;
+//		c = (int) d;
+//	}
 //		System.out.println(shortestToChar1("loveleetcode", 'e'));
 //		Integer a = new Integer(12);
 //		String[] a = { "ad", "bd", "aaab", "baa", "badab" };// b = { "amazing", "leetcode", "is" };
@@ -61,6 +59,280 @@ public class Practice {
 //		System.out.println(addStrings("9", "99"));
 //		int[] a = { 1, 2, 3, 6 }, b = { 2, 3, 4, 5 };
 //		System.out.println(getCommon(a, b));
+//		int[] a = { 2, 2 };
+//		System.out.println(buyChoco(a, 3));
+//		Set<Integer> tr = new TreeSet<>();
+//		System.out.println(lastStoneWeight(a));
+//		String[] ax = { "./", "../", "./" };
+//		System.out.println(minOperations(ax));
+//		generate(5);
+//		String a = "-1";
+//		int ab = Integer.parseInt(a);
+//		System.out.println(a.length());
+//		String[] a = { "5", "2", "C", "D", "+" };
+//		int[] b = { 10, 1, 1, 6 };
+//		System.out.println(Arrays.toString(finalPrices(b)));
+	}
+
+	public static int[] finalPrices(int[] prices) {
+		int[] res = new int[prices.length];
+		res[res.length - 1] = prices[prices.length - 1];
+		for (int i = 0; i < prices.length - 1; i++) {
+			boolean flag = true;
+			for (int j = i; j < prices.length; j++) {
+				if (i != j && prices[i] >= prices[j]) {
+					res[i] = prices[i] - prices[j];
+					flag = false;
+					break;
+				}
+			}
+			if (res[i] == 0 && flag)
+				res[i] = prices[i];
+		}
+		return res;
+	}
+
+	public boolean checkValid(int[][] matrix) {
+		for (int r = 0, n = matrix.length; r < n; ++r) {
+			Set<Integer> row = new HashSet<>();
+			Set<Integer> col = new HashSet<>();
+			for (int c = 0; c < n; ++c) {
+				if (!row.add(matrix[r][c]) || !col.add(matrix[c][r])) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	public static int maximumNumberOfStringPairs(String[] words) {
+		int count = 0;
+		for (int i = 0; i < words.length; i++) {
+			String current = words[i];
+			String rev = revr(current);
+			for (int j = i; j < words.length; j++) {
+				if (i != j && rev.equals(words[j])) {
+					count++;
+					break;
+				}
+			}
+		}
+		return count;
+	}
+
+	public static String revr(String a) {
+		char[] ar = a.toCharArray();
+		StringBuilder br = new StringBuilder();
+		for (int i = ar.length - 1; i >= 0; i--) {
+			br.append(ar[i]);
+		}
+		return br.toString();
+	}
+
+	public static int calPoints(String[] operations) {
+		List<Integer> res = new ArrayList<>();
+		for (int i = 0; i < operations.length; i++) {
+			String a = operations[i];
+			if (a.equals("D")) {
+				res.add(2 * res.get(res.size() - 1));
+			} else if (a.equals("C")) {
+				res.remove(res.size() - 1);
+			} else if (a.equals("+")) {
+				res.add(res.get(res.size() - 1) + res.get(res.size() - 2));
+			} else {
+				res.add(Integer.parseInt(a));
+			}
+		}
+		int result = 0;
+		for (Integer a : res)
+			result += a;
+
+		return result;
+	}
+
+	public static int minMovesToSeat(int[] seats, int[] students) {
+		Arrays.sort(seats);
+		Arrays.sort(students);
+		int total = 0;
+		for (int i = 0; i < seats.length; i++) {
+			total += Math.abs(seats[i] - students[i]);
+		}
+		return total;
+	}
+
+	public static int largestAltitude(int[] gain) {
+		int a = 0, temp, prev = 0;
+		for (int i = 0; i < gain.length; i++) {
+			int cur = gain[i];
+			temp = prev + cur;
+			if (temp > a) {
+				a = temp;
+			}
+			prev = temp;
+		}
+		return a;
+	}
+
+	public static int maximizeSum(int[] nums, int k) {
+		int score = 0, index = 0, prev = 0;
+		for (int i = 0; i < nums.length; i++) {
+			if (nums[i] > prev) {
+				index = i;
+				prev = nums[i];
+			}
+		}
+		for (int i = 0; i < k; i++) {
+			score += nums[index];
+			nums[index] = nums[index] + 1;
+		}
+		return score;
+	}
+
+	public static List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+		List<Boolean> val = new ArrayList<>();
+		int prev = 0;
+		for (int i = 0; i < candies.length; i++) {
+			prev = candies[i] + extraCandies;
+			boolean flag = true;
+			for (int j = 0; j < candies.length; j++) {
+				if (prev < candies[j]) {
+					flag = false;
+					break;
+				}
+			}
+			val.add(flag);
+		}
+		return val;
+	}
+
+	public static int[] decode(int[] encoded, int first) {
+		int[] res = new int[encoded.length + 1];
+		res[0] = first;
+		for (int i = 0; i < encoded.length; i++) {
+			res[i + 1] = encoded[i] ^ res[i];
+		}
+
+		return res;
+	}
+//	public int[] relativeSortArray(int[] arr1, int[] arr2) {
+//		Map<Integer, Integer> map = new HashMap<>();
+//
+//		for (int i = 0; i < arr1.length; i++) {
+//			if (map.containsKey(arr1[i])) {
+//
+//			} else {
+//				map.put(arr[1], 1);
+//			}
+//		}
+//	}
+
+	public static List<List<Integer>> generate(int numRows) {
+		List<List<Integer>> main = new ArrayList<>();
+		ArrayList<Integer> child = new ArrayList<>();
+		child.add(1);
+		if (numRows == 1) {
+			main.add(child);
+		} else {
+			main.add(child);
+
+			child = new ArrayList<>();
+			child.add(1);
+			child.add(1);
+			main.add(child);
+
+			for (int i = 1; i < numRows - 1; i++) {
+				child = new ArrayList<>();
+				child.add(1);
+				child.add(1);
+				List<Integer> pre = main.get(i - 1);
+
+				int total = pre.get(i) + pre.get(i - 1);
+				child.add(i, total);
+				main.add(child);
+			}
+		}
+		return main;
+
+	}
+
+	public static int minOperations(String[] logs) {
+		List<String> res = new ArrayList<>();
+
+		for (int i = 0; i < logs.length; i++) {
+			String cur = logs[i];
+			if (cur.equals("../")) {
+				if (!res.isEmpty())
+					res.remove(res.size() - 1);
+			} else {
+				if (!cur.equals("./")) {
+					res.add(cur.substring(0, cur.length() - 1));
+				}
+			}
+		}
+		return res.size();
+	}
+
+	public static int lastStoneWeight(int[] stones) {
+		List<Integer> list = new ArrayList<>();
+		for (int a : stones)
+			list.add(a);
+
+		while (list.size() != 1 && !list.isEmpty()) {
+			list = cure(list);
+		}
+		if (list.isEmpty()) {
+			return 0;
+		}
+		return list.get(0);
+	}
+
+	public static List<Integer> cure(List<Integer> list) {
+		Collections.sort(list);
+
+		int res = list.get(list.size() - 1) - list.get(list.size() - 2);
+		list.remove(list.size() - 2);
+		list.remove(list.size() - 1);
+		if (res != 0) {
+			list.add(res);
+		}
+		return list;
+	}
+
+	public static int buyChoco(int[] prices, int money) {
+		if (prices.length == 1) {
+			if (money - prices[0] < 0) {
+				return money;
+			} else {
+				return money - prices[0];
+			}
+		}
+
+		for (int i = 0; i < prices.length; i++) {
+			for (int j = 0; j < prices.length; j++) {
+				if (prices[i] < prices[j]) {
+					int temp = prices[i];
+					prices[i] = prices[j];
+					prices[j] = temp;
+				}
+			}
+		}
+		if (money - (prices[0] + prices[1]) < 0) {
+			return money;
+		} else {
+			return money - (prices[0] + prices[1]);
+		}
+	}
+
+	public static int[][] transpose(int[][] matrix) {
+		int[][] res = new int[matrix[0].length][matrix.length];
+
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				res[j][i] = matrix[i][j];
+			}
+		}
+		return res;
+	}
 
 	public boolean containsNearbyAlmostDuplicate(int[] nums, int indexDiff, int valueDiff) {
 		boolean incflag = true, decflag = false;

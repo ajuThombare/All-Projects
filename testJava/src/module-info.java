@@ -6,4 +6,5 @@
  *
  */
 module testJava {
+	requires java.sql;
 }
